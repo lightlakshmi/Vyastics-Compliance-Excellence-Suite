@@ -1016,6 +1016,8 @@
             localStorage.setItem('complianceAttempts', JSON.stringify(allAttempts));
 
             displayResults(totalScore, totalCorrect, passed, moduleScores);
+            sendResultsToGoogleSheet(totalScore, passed);
+
         }
 
         function displayResults(score, correctAnswers, passed, moduleScores) {
@@ -1129,6 +1131,36 @@
             console.table(allAttempts);
             return allAttempts;
         }
+        function sendResultsToGoogleSheet(score, passed) {
+    const scriptURL = "https://script.google.com/macros/s/AKfycby5Nkg5hQWAd0aMYHL5p5xHwCvTCowfOekdfV30AhOSLQ90O5Jwq0BeIrmP1fj3wNB8Fg/exec";
+
+    const allAttempts = JSON.parse(localStorage.getItem('complianceAttempts') || '[]');
+    const attemptNumber = allAttempts.filter(a => a.employeeId === userData.employeeId).length;
+
+    const payload = {
+        employeeId: userData.employeeId,
+        name: userData.name,
+        department: userData.department,
+        email: userData.email,
+        module: userData.modules.join(", "),
+        score: score,
+        status: passed ? "PASS" : "FAIL",
+        attempt: attemptNumber,
+        date: new Date().toLocaleString()
+    };
+
+    fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(res => res.json())
+    .then(data => console.log("✅ Saved to Google Sheet:", data))
+    .catch(err => console.error("❌ Error:", err));
+}
+
         window.viewAllResults = viewAllResults;
     </script>
 </body>
