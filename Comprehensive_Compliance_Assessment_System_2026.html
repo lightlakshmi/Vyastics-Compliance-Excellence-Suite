@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Compliance Training Assessment 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #065A82 0%, #1C7293 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #21295C 0%, #065A82 100%);
+            color: white;
+            padding: 35px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        
+        .header p {
+            font-size: 17px;
+            opacity: 0.95;
+        }
+        
+        .module-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .module-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+        
+        .module-card {
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .module-card:hover {
+            border-color: #1C7293;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(28,114,147,0.2);
+        }
+        
+        .module-card.selected {
+            border-color: #1C7293;
+            background: linear-gradient(135deg, #E8F4F8 0%, #D4EDF6 100%);
+        }
+        
+        .module-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+        
+        .module-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #21295C;
+            margin-bottom: 8px;
+        }
+        
+        .module-desc {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 22px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 15px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 13px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #1C7293;
+        }
+        
+        .question-card {
+            background: #f9fafb;
+            border-left: 5px solid #1C7293;
+            padding: 28px;
+            margin-bottom: 28px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .question-number {
+            font-weight: 700;
+            color: #1C7293;
+        }
+        
+        .module-tag {
+            background: #E8F4F8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #065A82;
+        }
+        
+        .question-text {
+            font-size: 19px;
+            color: #222;
+            margin-bottom: 18px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .options {
+            margin-left: 10px;
+        }
+        
+        .option {
+            margin-bottom: 14px;
+        }
+        
+        .option input[type="radio"] {
+            margin-right: 12px;
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+        
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            color: #444;
+            line-height: 1.5;
+        }
+        
+        .option:hover label {
+            color: #1C7293;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #1C7293 0%, #065A82 100%);
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            font-size: 17px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(28,114,147,0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(28,114,147,0.4);
+        }
+        
+        .btn:disabled {
+            background: #bbb;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            margin-left: 12px;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+        }
+        
+        .progress-bar {
+            background: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #1C7293 0%, #02C39A 100%);
+            height: 100%;
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .result-card {
+            text-align: center;
+            padding: 45px;
+        }
+        
+        .result-card.pass {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        }
+        
+        .result-card.fail {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        }
+        
+        .result-icon {
+            font-size: 90px;
+            margin-bottom: 22px;
+        }
+        
+        .result-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 18px;
+            color: #21295C;
+        }
+        
+        .result-score {
+            font-size: 56px;
+            font-weight: bold;
+            margin: 25px 0;
+            color: #065A82;
+        }
+        
+        .result-message {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 22px;
+            color: #444;
+        }
+        
+        .alert {
+            padding: 16px;
+            margin-bottom: 22px;
+            border-radius: 8px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .module-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .module-score-card {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            text-align: center;
+        }
+        
+        .module-score-card h4 {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .module-score-card .score {
+            font-size: 28px;
+            font-weight: bold;
+            color: #21295C;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 26px;
+            }
+            
+            .module-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-text {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Comprehensive Compliance Training Assessment 2026</h1>
+            <p>Code of Conduct • Data Privacy • ISMS • POSH</p>
+            <div class="module-badges">
+                <span class="badge">AI Ethics</span>
+                <span class="badge">GDPR + DPDP</span>
+                <span class="badge">Zero Trust</span>
+                <span class="badge">Digital Harassment</span>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Section 1: Module Selection & User Info -->
+            <div id="setupSection" class="section active">
+                <h2 style="margin-bottom: 25px; color: #21295C;">Step 1: Select Training Module(s)</h2>
+                
+                <div class="alert alert-info">
+                    <strong>📋 Assessment Rules:</strong> You must score 80% or higher to pass. Each module has 25 questions. Retakes allowed if you don't pass. All attempts are tracked.
+                </div>
+                
+                <div class="module-selector">
+                    <div class="module-card" data-module="code-conduct">
+                        <div class="module-icon">📜</div>
+                        <div class="module-title">Code of Conduct</div>
+                        <div class="module-desc">Ethics, AI, Digital Workplace</div>
+                    </div>
+                    
+                    <div class="module-card" data-module="data-privacy">
+                        <div class="module-icon">🔒</div>
+                        <div class="module-title">Data Privacy</div>
+                        <div class="module-desc">GDPR + India DPDP Act</div>
+                    </div>
+                    
+                    <div class="module-card" data-module="isms">
+                        <div class="module-icon">🛡️</div>
+                        <div class="module-title">ISMS Security</div>
+                        <div class="module-desc">ISO 27001, Zero Trust</div>
+                    </div>
+                    
+                    <div class="module-card" data-module="posh">
+                        <div class="module-icon">🤝</div>
+                        <div class="module-title">POSH</div>
+                        <div class="module-desc">Sexual Harassment Prevention</div>
+                    </div>
+                </div>
+                
+                <h2 style="margin: 35px 0 25px; color: #21295C;">Step 2: Your Information</h2>
+                
+                <div class="form-group">
+                    <label for="employeeName">Full Name *</label>
+                    <input type="text" id="employeeName" required placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="employeeId">Employee ID *</label>
+                    <input type="text" id="employeeId" required placeholder="Enter your employee ID">
+                </div>
+                
+                <div class="form-group">
+                    <label for="department">Department *</label>
+                    <select id="department" required>
+                        <option value="">Select Department</option>
+                        <option value="Administration">Administration</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="Operations">Operations</option>
+                        <option value="Sales & Marketing">Sales & Marketing</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="Customer Service">Customer Service</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Quality Assurance">Quality Assurance</option>
+                        <option value="Legal & Compliance">Legal & Compliance</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" required placeholder="[email protected]">
+                </div>
+                
+                <button class="btn" onclick="startAssessment()">Start Assessment →</button>
+            </div>
+            
+            <!-- Section 2: Assessment Questions -->
+            <div id="assessmentSection" class="section">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Question 1 of 25</div>
+                </div>
+                
+                <div id="questionContainer"></div>
+                
+                <div style="margin-top: 35px; display: flex; justify-content: space-between; align-items: center;">
+                    <button class="btn btn-secondary" onclick="previousQuestion()" id="prevBtn" style="display: none;">← Previous</button>
+                    <div style="flex: 1;"></div>
+                    <button class="btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+                    <button class="btn" onclick="submitAssessment()" id="submitBtn" style="display: none;">Submit Assessment</button>
+                </div>
+            </div>
+            
+            <!-- Section 3: Results -->
+            <div id="resultsSection" class="section">
+                <div id="resultContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Questions database - 25 questions per module
+        const questionBank = {
+            'code-conduct': [
+                {
+                    question: "What is the primary purpose of the Code of Conduct?",
+                    options: [
+                        "To punish employees who make mistakes",
+                        "To establish behavioral standards and ensure ethical decision-making",
+                        "To make company policies more complicated",
+                        "To reduce employee benefits"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Which is NOT part of the ethical decision-making framework?",
+                    options: [
+                        "Is it legal?",
+                        "Is it aligned with company values?",
+                        "Will I get caught?",
+                        "Am I willing to take responsibility?"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "You paste confidential client data into free ChatGPT to draft a proposal. Is this acceptable?",
+                    options: [
+                        "Yes, if I cite that AI helped",
+                        "Yes, ChatGPT keeps conversations private",
+                        "NO - This leaks confidential data to OpenAI",
+                        "Yes, if client won't find out"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Your manager sends Teams message at 11 PM requesting report by 7 AM. Best response?",
+                    options: [
+                        "Stay up all night to complete it",
+                        "Ignore until morning",
+                        "Acknowledge, clarify if true emergency, discuss reasonable timeline",
+                        "Complete but report manager to HR"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Which AI tool usage is ACCEPTABLE at work?",
+                    options: [
+                        "Using personal ChatGPT for work documents",
+                        "Using company ChatGPT Enterprise for approved tasks",
+                        "Pasting customer data into any AI tool",
+                        "Presenting AI output as your own analysis"
+                    ],
+                    correct: 1
+                },
+                // Continue with 20 more code of conduct questions...
+                {
+                    question: "You manage cloud infrastructure and learn company is switching to AWS before public announcement. You own Amazon stock. What to do?",
+                    options: [
+                        "Sell stock immediately",
+                        "Buy more stock",
+                        "Do nothing with stock + disclose to compliance",
+                        "Tell friends so they can invest"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Side gig freelancing requires:",
+                    options: [
+                        "No disclosure needed if on personal time",
+                        "Disclosure to manager + written approval",
+                        "Just don't use company equipment",
+                        "Only disclosure if asked"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Company laptop can be used for personal side business on weekends:",
+                    options: [
+                        "Yes, if on personal time",
+                        "Yes, if not accessing company systems",
+                        "NO - Company assets for business use only",
+                        "Yes, with IT permission"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "When should you disclose a potential conflict of interest?",
+                    options: [
+                        "Only if someone asks",
+                        "Immediately to supervisor and HR",
+                        "At annual review",
+                        "Never, it's personal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Whistleblower protection means:",
+                    options: [
+                        "You won't be punished for good faith reporting",
+                        "Automatic promotion",
+                        "Immunity from all policies",
+                        "Monetary reward"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Digital workplace conduct: After-hours messages should be:",
+                    options: [
+                        "Sent whenever convenient",
+                        "Avoided unless emergency or marked non-urgent",
+                        "Expected to get immediate response",
+                        "Unlimited, as we're always connected"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Professional behavior in video calls requires:",
+                    options: [
+                        "Camera can stay off for all meetings",
+                        "Camera on for team meetings, professional background",
+                        "Any background is fine",
+                        "Multitasking is acceptable"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Gifts from vendors over what amount must be disclosed?",
+                    options: [
+                        "₹1,000",
+                        "₹5,000",
+                        "₹10,000",
+                        "No limit"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "You have 50K Instagram followers. Client offers products to post about. Correct action:",
+                    options: [
+                        "Accept if I use #ad",
+                        "Decline OR get compliance approval + client approval + disclosure",
+                        "Accept, it's my personal account",
+                        "Only disclose if paid in cash"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Company code you write on company equipment is:",
+                    options: [
+                        "Your intellectual property",
+                        "Shared ownership",
+                        "Company IP even if written at night/weekend",
+                        "Depends on your contract"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "When leaving company, you should:",
+                    options: [
+                        "Keep customer contacts for networking",
+                        "Download useful files for reference",
+                        "Return all devices, delete company data, don't take contacts",
+                        "Recruit colleagues for new job"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Using AI-generated content requires:",
+                    options: [
+                        "No disclosure needed",
+                        "Disclosure + review + human accountability",
+                        "Just cite the AI tool",
+                        "Only if asked"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Teams/Slack professional standards include:",
+                    options: [
+                        "Use @channel for any announcement",
+                        "Respond within 1 hour always",
+                        "Respond within 24 hours during work hours, respect DND",
+                        "No standards for informal chat"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Company ChatGPT Enterprise license can be used for:",
+                    options: [
+                        "Work tasks only",
+                        "Personal homework",
+                        "Family projects",
+                        "Any purpose since company pays"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Cloud storage (Google Drive/OneDrive) company account is for:",
+                    options: [
+                        "Business files only",
+                        "Personal backup too",
+                        "Family photos if space available",
+                        "Any files"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Serious misconduct like fraud can result in:",
+                    options: [
+                        "Only written warning",
+                        "Mandatory training",
+                        "Criminal prosecution and termination",
+                        "Transfer to different department"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "If you witness Code of Conduct violation, you should:",
+                    options: [
+                        "Ignore if doesn't affect you",
+                        "Spread information to colleagues",
+                        "Report immediately through appropriate channels",
+                        "Wait to see if it happens again"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Remote work security: Home network should:",
+                    options: [
+                        "Keep default router password",
+                        "Change router password + enable WPA3/WPA2 encryption",
+                        "Share WiFi freely with neighbors",
+                        "Security doesn't matter at home"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Company Zoom account should be used for:",
+                    options: [
+                        "Work meetings only",
+                        "Family video calls too",
+                        "Any meetings",
+                        "Whatever you want"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Core company values are:",
+                    options: [
+                        "Just words on wall",
+                        "Guide for every decision you make",
+                        "Only for management",
+                        "Optional guidelines"
+                    ],
+                    correct: 1
+                }
+            ],
+            
+            'data-privacy': [
+                {
+                    question: "India DPDP Act full compliance deadline is:",
+                    options: [
+                        "Already passed",
+                        "December 2026",
+                        "May 13, 2027",
+                        "January 2028"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Which law applies when processing Indian residents' data from outside India?",
+                    options: [
+                        "GDPR only",
+                        "DPDP Act only",
+                        "Both GDPR and DPDP if applicable",
+                        "Neither"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Valid consent under DPDP must be:",
+                    options: [
+                        "Free, specific, informed, unconditional, unambiguous",
+                        "Just verbal agreement",
+                        "Implied by continued use",
+                        "Pre-ticked boxes are fine"
+                    ],
+                    correct: 0
+                },
+                // Add 22 more data privacy questions...
+            ],
+            
+            'isms': [
+                {
+                    question: "Average ransomware cost in 2026 is approximately:",
+                    options: [
+                        "$500,000",
+                        "$2 million",
+                        "$5.13 million",
+                        "$10 million"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Zero Trust security means:",
+                    options: [
+                        "Trust no one, verify everyone continuously",
+                        "Trust employees but not vendors",
+                        "Trust office but not remote workers",
+                        "Traditional perimeter security"
+                    ],
+                    correct: 0
+                },
+                // Add 23 more ISMS questions...
+            ],
+            
+            'posh': [
+                {
+                    question: "July 2025 POSH amendment requires companies to disclose in Board Report:",
+                    options: [
+                        "Only existence of Internal Committee",
+                        "Complaints received, resolved, pending >90 days, gender composition",
+                        "Names of all complainants",
+                        "Only if complaints proved"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Digital harassment on WhatsApp between colleagues is:",
+                    options: [
+                        "Not covered under POSH",
+                        "Covered only during work hours",
+                        "Covered if professional relationship exists",
+                        "Personal matter only"
+                    ],
+                    correct: 2
+                },
+                // Add 23 more POSH questions...
+            ]
+        };
+
+        let selectedModules = [];
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let userData = {};
+        let questionsPool = [];
+        
+        // Module selection
+        document.querySelectorAll('.module-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const module = this.dataset.module;
+                this.classList.toggle('selected');
+                
+                if (selectedModules.includes(module)) {
+                    selectedModules = selectedModules.filter(m => m !== module);
+                } else {
+                    selectedModules.push(module);
+                }
+            });
+        });
+
+        function startAssessment() {
+            const name = document.getElementById('employeeName').value.trim();
+            const empId = document.getElementById('employeeId').value.trim();
+            const dept = document.getElementById('department').value;
+            const email = document.getElementById('email').value.trim();
+
+            if (!name || !empId || !dept || !email) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            if (selectedModules.length === 0) {
+                alert('Please select at least one training module');
+                return;
+            }
+
+            userData = {
+                name: name,
+                employeeId: empId,
+                department: dept,
+                email: email,
+                modules: selectedModules,
+                timestamp: new Date().toISOString()
+            };
+
+            // Build questions pool
+            questionsPool = [];
+            selectedModules.forEach(module => {
+                questionsPool.push(...questionBank[module].map(q => ({...q, module: module})));
+            });
+
+            showSection('assessmentSection');
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const question = questionsPool[currentQuestion];
+            const container = document.getElementById('questionContainer');
+            
+            const moduleNames = {
+                'code-conduct': 'Code of Conduct',
+                'data-privacy': 'Data Privacy',
+                'isms': 'ISMS Security',
+                'posh': 'POSH'
+            };
+            
+            container.innerHTML = `
+                <div class="question-card">
+                    <div class="question-meta">
+                        <span class="question-number">Question ${currentQuestion + 1} of ${questionsPool.length}</span>
+                        <span class="module-tag">${moduleNames[question.module]}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option">
+                                <input type="radio" 
+                                       id="option${index}" 
+                                       name="question${currentQuestion}" 
+                                       value="${index}"
+                                       ${userAnswers[currentQuestion] === index ? 'checked' : ''}>
+                                <label for="option${index}">${option}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            updateProgress();
+            updateButtons();
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questionsPool.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questionsPool.length}`;
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            prevBtn.style.display = currentQuestion > 0 ? 'inline-block' : 'none';
+            
+            if (currentQuestion === questionsPool.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'inline-block';
+            } else {
+                nextBtn.style.display = 'inline-block';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        function saveCurrentAnswer() {
+            const selected = document.querySelector(`input[name="question${currentQuestion}"]:checked`);
+            if (selected) {
+                userAnswers[currentQuestion] = parseInt(selected.value);
+            }
+        }
+
+        function nextQuestion() {
+            saveCurrentAnswer();
+            
+            if (currentQuestion < questionsPool.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            saveCurrentAnswer();
+            
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+            }
+        }
+
+        function submitAssessment() {
+            saveCurrentAnswer();
+
+            if (userAnswers.length < questionsPool.length) {
+                alert('Please answer all questions before submitting.');
+                return;
+            }
+
+            // Calculate scores
+            let totalCorrect = 0;
+            const moduleScores = {};
+            
+            selectedModules.forEach(mod => {
+                moduleScores[mod] = { correct: 0, total: 0 };
+            });
+
+            questionsPool.forEach((question, index) => {
+                const module = question.module;
+                moduleScores[module].total++;
+                
+                if (userAnswers[index] === question.correct) {
+                    totalCorrect++;
+                    moduleScores[module].correct++;
+                }
+            });
+
+            const totalScore = Math.round((totalCorrect / questionsPool.length) * 100);
+            const passed = totalScore >= 80;
+
+            // Save to localStorage
+            const attemptData = {
+                ...userData,
+                score: totalScore,
+                moduleScores: moduleScores,
+                correctAnswers: totalCorrect,
+                totalQuestions: questionsPool.length,
+                passed: passed,
+                answers: userAnswers,
+                timestamp: new Date().toISOString()
+            };
+
+            const allAttempts = JSON.parse(localStorage.getItem('complianceAttempts') || '[]');
+            allAttempts.push(attemptData);
+            localStorage.setItem('complianceAttempts', JSON.stringify(allAttempts));
+
+            displayResults(totalScore, totalCorrect, passed, moduleScores);
+        }
+
+        function displayResults(score, correctAnswers, passed, moduleScores) {
+            const resultContent = document.getElementById('resultContent');
+            
+            const moduleNames = {
+                'code-conduct': 'Code of Conduct',
+                'data-privacy': 'Data Privacy',
+                'isms': 'ISMS Security',
+                'posh': 'POSH'
+            };
+            
+            let moduleBreakdown = '<div class="module-breakdown">';
+            Object.keys(moduleScores).forEach(module => {
+                const modScore = Math.round((moduleScores[module].correct / moduleScores[module].total) * 100);
+                moduleBreakdown += `
+                    <div class="module-score-card">
+                        <h4>${moduleNames[module]}</h4>
+                        <div class="score">${modScore}%</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">
+                            ${moduleScores[module].correct}/${moduleScores[module].total} correct
+                        </div>
+                    </div>
+                `;
+            });
+            moduleBreakdown += '</div>';
+
+            resultContent.innerHTML = `
+                <div class="result-card ${passed ? 'pass' : 'fail'}">
+                    <div class="result-icon">${passed ? '🎉' : '📚'}</div>
+                    <div class="result-title">${passed ? 'Congratulations!' : 'Additional Study Required'}</div>
+                    <div class="result-score">${score}%</div>
+                    <div class="result-message">
+                        <strong>${userData.name}</strong> (${userData.employeeId})<br>
+                        ${passed ? 
+                            `You have successfully completed the Compliance Training Assessment!<br>
+                            You answered ${correctAnswers} out of ${questionsPool.length} questions correctly.<br><br>
+                            Your completion certificate is ready to download below.` :
+                            `You scored ${score}% but need 80% to pass.<br>
+                            You answered ${correctAnswers} out of ${questionsPool.length} questions correctly.<br><br>
+                            Please review the training materials for the modules where you scored below 80% and retake the assessment.`
+                        }
+                    </div>
+                    
+                    <h3 style="margin: 30px 0 15px; color: #21295C;">Module-Wise Performance</h3>
+                    ${moduleBreakdown}
+                    
+                    ${!passed ? `<button class="btn" onclick="retakeAssessment()" style="margin-top: 25px;">Retake Assessment</button>` : ''}
+                    <button class="btn btn-secondary" onclick="downloadCertificate()" style="margin-top: 25px;">${passed ? 'Download' : 'Print'} Certificate</button>
+                </div>
+            `;
+
+            showSection('resultsSection');
+        }
+
+        function retakeAssessment() {
+            currentQuestion = 0;
+            userAnswers = [];
+            showSection('assessmentSection');
+            displayQuestion();
+        }
+
+        function downloadCertificate() {
+            const attemptData = JSON.parse(localStorage.getItem('complianceAttempts') || '[]');
+            const userAttempts = attemptData.filter(a => a.employeeId === userData.employeeId);
+            
+            let reportContent = `COMPREHENSIVE COMPLIANCE TRAINING ASSESSMENT 2026 - RESULTS\n`;
+            reportContent += `${'='.repeat(75)}\n\n`;
+            reportContent += `Employee Name: ${userData.name}\n`;
+            reportContent += `Employee ID: ${userData.employeeId}\n`;
+            reportContent += `Department: ${userData.department}\n`;
+            reportContent += `Email: ${userData.email}\n`;
+            reportContent += `Modules Assessed: ${selectedModules.join(', ')}\n\n`;
+            reportContent += `${'='.repeat(75)}\n\n`;
+            
+            userAttempts.forEach((attempt, idx) => {
+                reportContent += `ATTEMPT #${idx + 1}\n`;
+                reportContent += `Date/Time: ${new Date(attempt.timestamp).toLocaleString()}\n`;
+                reportContent += `Overall Score: ${attempt.score}% (${attempt.correctAnswers}/${attempt.totalQuestions})\n`;
+                reportContent += `Status: ${attempt.passed ? 'PASSED ✓' : 'FAILED - RETEST REQUIRED'}\n\n`;
+                reportContent += `Module Breakdown:\n`;
+                Object.keys(attempt.moduleScores).forEach(mod => {
+                    const modScore = Math.round((attempt.moduleScores[mod].correct / attempt.moduleScores[mod].total) * 100);
+                    reportContent += `  - ${mod}: ${modScore}% (${attempt.moduleScores[mod].correct}/${attempt.moduleScores[mod].total})\n`;
+                });
+                reportContent += `\n`;
+            });
+            
+            reportContent += `${'='.repeat(75)}\n`;
+            reportContent += `This certificate is auto-generated and serves as official record of training completion.\n`;
+            reportContent += `Generated on: ${new Date().toLocaleString()}\n`;
+
+            const blob = new Blob([reportContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Compliance_Training_Certificate_${userData.employeeId}_${Date.now()}.txt`;
+            a.click();
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Admin function
+        function viewAllResults() {
+            const allAttempts = JSON.parse(localStorage.getItem('complianceAttempts') || '[]');
+            console.table(allAttempts);
+            return allAttempts;
+        }
+        window.viewAllResults = viewAllResults;
+    </script>
+</body>
+</html>
