@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vyastics - Compliance Training Results Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2C3E50 0%, #4CA1AF 100%);
+            min-height: 100vh;
+            padding: 30px;
+        }
+        
+        .login-container {
+            max-width: 450px;
+            margin: 100px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+            padding: 50px;
+            text-align: center;
+        }
+        
+        .login-logo {
+            width: 200px;
+            margin-bottom: 30px;
+        }
+        
+        .login-container h2 {
+            color: #2C3E50;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .login-container p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn-login {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: none;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .header-logo {
+            height: 50px;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+        
+        .header-title h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .header-title p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .header-right {
+            text-align: right;
+        }
+        
+        .user-info {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .btn-logout {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-card.success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        
+        .stat-card.warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .stat-card.info {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .stat-value {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+            display: block;
+        }
+        
+        .results-table thead {
+            background: #f8f9fa;
+        }
+        
+        .results-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 2px solid #dee2e6;
+            font-size: 14px;
+        }
+        
+        .results-table td {
+            padding: 14px;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 14px;
+        }
+        
+        .results-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .module-badges {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .module-badge {
+            background: #e7f3ff;
+            color: #0066cc;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #6c757d;
+        }
+        
+        .empty-state-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .results-table {
+                font-size: 12px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-container" id="loginScreen">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAA8AKADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9k=" alt="Vyastics Logo" class="login-logo">
+        <h2>Secure Admin Portal</h2>
+        <p>Compliance Training Results Dashboard</p>
+        
+        <div class="error-message" id="errorMessage">
+            Invalid credentials. Access restricted to authorized HR personnel only.
+        </div>
+        
+        <form onsubmit="return login(event)">
+            <div class="form-group">
+                <label for="loginEmail">Email Address</label>
+                <input type="email" id="loginEmail" required placeholder="[email protected]">
+            </div>
+            
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" required placeholder="Enter your password">
+            </div>
+            
+            <button type="submit" class="btn-login">Login to Dashboard</button>
+        </form>
+        
+        <p style="margin-top: 30px; font-size: 12px; color: #999;">
+            🔒 Access restricted to: lakshmi@vyastics.com and srivatsan@vyastics.com
+        </p>
+    </div>
+
+    <!-- Main Dashboard (Hidden until login) -->
+    <div class="container" id="mainDashboard">
+        <div class="header">
+            <div class="header-left">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAA8AKADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9k=" alt="Vyastics" class="header-logo">
+                <div class="header-title">
+                    <h1>Compliance Training Results</h1>
+                    <p>Vyastics HR Admin Dashboard</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-info">👤 Logged in as: <strong id="currentUser"></strong></div>
+                <button class="btn-logout" onclick="logout()">🔓 Logout</button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="alert alert-success">
+                <strong>🔒 Secure Access:</strong> You are viewing confidential employee training data. This information is restricted to HR personnel only (Lakshmi & Srivatsan).
+            </div>
+            
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalAttempts">0</div>
+                    <div class="stat-label">Total Attempts</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-value" id="totalPassed">0</div>
+                    <div class="stat-label">Passed (80%+)</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-value" id="totalFailed">0</div>
+                    <div class="stat-label">Need Retest</div>
+                </div>
+                <div class="stat-card info">
+                    <div class="stat-value" id="avgScore">0%</div>
+                    <div class="stat-label">Average Score</div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Search by name, employee ID, or department...">
+                </div>
+                <button class="btn btn-success" onclick="exportToCSV()">📥 Export to CSV</button>
+                <button class="btn btn-success" onclick="exportToExcel()">📊 Export to Excel</button>
+                <button class="btn" onclick="refreshResults()">🔄 Refresh</button>
+                <button class="btn btn-warning" onclick="clearAllData()">🗑️ Clear All Data</button>
+            </div>
+            
+            <div id="resultsContainer">
+                <table class="results-table" id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Email</th>
+                            <th>Modules Tested</th>
+                            <th>Overall Score</th>
+                            <th>Status</th>
+                            <th>Attempt #</th>
+                            <th>Date & Time</th>
+                            <th>Module Scores</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Authorized users with hashed passwords (simple implementation)
+        const authorizedUsers = {
+            'lakshmi@vyastics.com': 'Vyastics2026!',
+            'srivatsan@vyastics.com': 'Vyastics2026!'
+        };
+
+        let currentUserEmail = '';
+        let allResults = [];
+
+        function login(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value.toLowerCase().trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (authorizedUsers[email] && authorizedUsers[email] === password) {
+                // Successful login
+                currentUserEmail = email;
+                sessionStorage.setItem('vyasticsAdminAuth', email);
+                sessionStorage.setItem('vyasticsAdminTime', Date.now());
+                
+                showDashboard();
+            } else {
+                // Failed login
+                document.getElementById('errorMessage').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('errorMessage').style.display = 'none';
+                }, 3000);
+            }
+            
+            return false;
+        }
+
+        function showDashboard() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainDashboard').style.display = 'block';
+            document.getElementById('currentUser').textContent = currentUserEmail;
+            loadResults();
+        }
+
+        function logout() {
+            sessionStorage.removeItem('vyasticsAdminAuth');
+            sessionStorage.removeItem('vyasticsAdminTime');
+            currentUserEmail = '';
+            document.getElementById('loginScreen').style.display = 'block';
+            document.getElementById('mainDashboard').style.display = 'none';
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        function checkAuth() {
+            const authEmail = sessionStorage.getItem('vyasticsAdminAuth');
+            const authTime = sessionStorage.getItem('vyasticsAdminTime');
+            
+            // Session expires after 8 hours
+            if (authEmail && authTime && (Date.now() - authTime < 8 * 60 * 60 * 1000)) {
+                if (authorizedUsers[authEmail]) {
+                    currentUserEmail = authEmail;
+                    showDashboard();
+                }
+            }
+        }
+
+        function loadResults() {
+            const stored = localStorage.getItem('complianceAttempts');
+            allResults = stored ? JSON.parse(stored) : [];
+            
+            if (allResults.length === 0) {
+                showEmptyState();
+            } else {
+                updateStats();
+                displayResults(allResults);
+            }
+        }
+
+        function updateStats() {
+            const totalAttempts = allResults.length;
+            const passed = allResults.filter(r => r.passed).length;
+            const failed = allResults.filter(r => !r.passed).length;
+            const avgScore = allResults.length > 0 
+                ? Math.round(allResults.reduce((sum, r) => sum + r.score, 0) / allResults.length)
+                : 0;
+
+            document.getElementById('totalAttempts').textContent = totalAttempts;
+            document.getElementById('totalPassed').textContent = passed;
+            document.getElementById('totalFailed').textContent = failed;
+            document.getElementById('avgScore').textContent = avgScore + '%';
+        }
+
+        function displayResults(results) {
+            const tbody = document.getElementById('resultsBody');
+            tbody.innerHTML = '';
+
+            if (results.length === 0) {
+                showEmptyState();
+                return;
+            }
+
+            const moduleNames = {
+                'code-conduct': 'Code',
+                'data-privacy': 'Privacy',
+                'isms': 'ISMS',
+                'posh': 'POSH'
+            };
+
+            results.forEach((result) => {
+                const row = document.createElement('tr');
+                
+                const modulesList = result.modules.map(m => 
+                    `<span class="module-badge">${moduleNames[m]}</span>`
+                ).join('');
+
+                let moduleScoresHTML = '';
+                if (result.moduleScores) {
+                    moduleScoresHTML = Object.keys(result.moduleScores).map(mod => {
+                        const score = Math.round((result.moduleScores[mod].correct / result.moduleScores[mod].total) * 100);
+                        return `${moduleNames[mod]}: ${score}%`;
+                    }).join('<br>');
+                }
+
+                const attemptNum = results.filter(r => 
+                    r.employeeId === result.employeeId && 
+                    new Date(r.timestamp) <= new Date(result.timestamp)
+                ).length;
+
+                row.innerHTML = `
+                    <td><strong>${result.employeeId}</strong></td>
+                    <td>${result.name}</td>
+                    <td>${result.department}</td>
+                    <td>${result.email}</td>
+                    <td><div class="module-badges">${modulesList}</div></td>
+                    <td><strong>${result.score}%</strong><br>
+                        <small>${result.correctAnswers}/${result.totalQuestions} correct</small>
+                    </td>
+                    <td><span class="badge ${result.passed ? 'badge-success' : 'badge-danger'}">
+                        ${result.passed ? '✓ PASSED' : '✗ RETEST REQUIRED'}
+                    </span></td>
+                    <td><span class="badge badge-warning">#${attemptNum}</span></td>
+                    <td>${new Date(result.timestamp).toLocaleString()}</td>
+                    <td><small>${moduleScoresHTML}</small></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function showEmptyState() {
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <h2>No Assessment Results Yet</h2>
+                    <p>Results will appear here once employees complete the training assessment.</p>
+                </div>
+            `;
+        }
+
+        function exportToCSV() {
+            if (allResults.length === 0) {
+                alert('No results to export');
+                return;
+            }
+
+            const headers = [
+                'Employee ID',
+                'Name',
+                'Department',
+                'Email',
+                'Modules Tested',
+                'Overall Score (%)',
+                'Correct Answers',
+                'Total Questions',
+                'Status',
+                'Attempt Number',
+                'Date & Time',
+                'Code of Conduct Score',
+                'Data Privacy Score',
+                'ISMS Score',
+                'POSH Score'
+            ];
+
+            const employeeAttemptCount = {};
+            
+            const rows = allResults.map(r => {
+                if (!employeeAttemptCount[r.employeeId]) {
+                    employeeAttemptCount[r.employeeId] = 0;
+                }
+                employeeAttemptCount[r.employeeId]++;
+
+                const getModuleScore = (module) => {
+                    if (r.moduleScores && r.moduleScores[module]) {
+                        return Math.round((r.moduleScores[module].correct / r.moduleScores[module].total) * 100) + '%';
+                    }
+                    return 'N/A';
+                };
+
+                return [
+                    r.employeeId,
+                    r.name,
+                    r.department,
+                    r.email,
+                    r.modules.join('; '),
+                    r.score,
+                    r.correctAnswers,
+                    r.totalQuestions,
+                    r.passed ? 'PASSED' : 'RETEST REQUIRED',
+                    employeeAttemptCount[r.employeeId],
+                    new Date(r.timestamp).toLocaleString(),
+                    getModuleScore('code-conduct'),
+                    getModuleScore('data-privacy'),
+                    getModuleScore('isms'),
+                    getModuleScore('posh')
+                ];
+            });
+
+            const csv = [
+                headers.join(','),
+                ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+            ].join('\n');
+
+            downloadFile(csv, 'Vyastics_Compliance_Training_Results_' + new Date().toISOString().split('T')[0] + '.csv', 'text/csv');
+        }
+
+        function exportToExcel() {
+            if (allResults.length === 0) {
+                alert('No results to export');
+                return;
+            }
+
+            let html = `
+                <html xmlns:x="urn:schemas-microsoft-com:office:excel">
+                <head>
+                    <meta charset="UTF-8">
+                    <style>
+                        table { border-collapse: collapse; width: 100%; }
+                        th { background-color: #4472C4; color: white; font-weight: bold; padding: 10px; border: 1px solid #ddd; }
+                        td { padding: 8px; border: 1px solid #ddd; }
+                        .passed { background-color: #C6EFCE; }
+                        .failed { background-color: #FFC7CE; }
+                        .logo { text-align: center; margin: 20px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="logo">
+                        <h1>VYASTICS</h1>
+                        <h2>Compliance Training Assessment Results</h2>
+                    </div>
+                    <p><strong>Generated:</strong> ${new Date().toLocaleString()}</p>
+                    <p><strong>Generated by:</strong> ${currentUserEmail}</p>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Email</th>
+                                <th>Modules</th>
+                                <th>Score (%)</th>
+                                <th>Correct</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Attempt #</th>
+                                <th>Date & Time</th>
+                                <th>Code Score</th>
+                                <th>Privacy Score</th>
+                                <th>ISMS Score</th>
+                                <th>POSH Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            const employeeAttemptCount = {};
+            
+            allResults.forEach(r => {
+                if (!employeeAttemptCount[r.employeeId]) {
+                    employeeAttemptCount[r.employeeId] = 0;
+                }
+                employeeAttemptCount[r.employeeId]++;
+
+                const getModuleScore = (module) => {
+                    if (r.moduleScores && r.moduleScores[module]) {
+                        return Math.round((r.moduleScores[module].correct / r.moduleScores[module].total) * 100) + '%';
+                    }
+                    return 'N/A';
+                };
+
+                const statusClass = r.passed ? 'passed' : 'failed';
+                
+                html += `
+                    <tr>
+                        <td>${r.employeeId}</td>
+                        <td>${r.name}</td>
+                        <td>${r.department}</td>
+                        <td>${r.email}</td>
+                        <td>${r.modules.join(', ')}</td>
+                        <td>${r.score}%</td>
+                        <td>${r.correctAnswers}</td>
+                        <td>${r.totalQuestions}</td>
+                        <td class="${statusClass}">${r.passed ? 'PASSED' : 'RETEST REQUIRED'}</td>
+                        <td>${employeeAttemptCount[r.employeeId]}</td>
+                        <td>${new Date(r.timestamp).toLocaleString()}</td>
+                        <td>${getModuleScore('code-conduct')}</td>
+                        <td>${getModuleScore('data-privacy')}</td>
+                        <td>${getModuleScore('isms')}</td>
+                        <td>${getModuleScore('posh')}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                        </tbody>
+                    </table>
+                    
+                    <h2 style="margin-top: 30px;">Summary Statistics</h2>
+                    <table border="1" style="width: 50%;">
+                        <tr><th>Total Attempts</th><td>${allResults.length}</td></tr>
+                        <tr><th>Passed</th><td>${allResults.filter(r => r.passed).length}</td></tr>
+                        <tr><th>Failed</th><td>${allResults.filter(r => !r.passed).length}</td></tr>
+                        <tr><th>Average Score</th><td>${Math.round(allResults.reduce((sum, r) => sum + r.score, 0) / allResults.length)}%</td></tr>
+                        <tr><th>Pass Rate</th><td>${Math.round((allResults.filter(r => r.passed).length / allResults.length) * 100)}%</td></tr>
+                    </table>
+                    
+                    <p style="margin-top: 30px; font-size: 12px; color: #666;">
+                        <strong>CONFIDENTIAL:</strong> This report contains sensitive employee information. Distribution restricted to authorized HR personnel only.
+                    </p>
+                </body>
+                </html>
+            `;
+
+            downloadFile(html, 'Vyastics_Compliance_Results_' + new Date().toISOString().split('T')[0] + '.xls', 'application/vnd.ms-excel');
+        }
+
+        function downloadFile(content, filename, type) {
+            const blob = new Blob([content], { type: type });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function refreshResults() {
+            loadResults();
+        }
+
+        function clearAllData() {
+            if (confirm('⚠️ WARNING: This will delete ALL assessment results permanently. Are you sure?')) {
+                if (confirm('This action cannot be undone. Confirm deletion?')) {
+                    localStorage.removeItem('complianceAttempts');
+                    allResults = [];
+                    loadResults();
+                    alert('All results have been cleared.');
+                }
+            }
+        }
+
+        // Search functionality
+        document.getElementById('searchInput')?.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                displayResults(allResults);
+            } else {
+                const filtered = allResults.filter(r => 
+                    r.name.toLowerCase().includes(searchTerm) ||
+                    r.employeeId.toLowerCase().includes(searchTerm) ||
+                    r.department.toLowerCase().includes(searchTerm) ||
+                    r.email.toLowerCase().includes(searchTerm)
+                );
+                displayResults(filtered);
+            }
+        });
+
+        // Check authentication on page load
+        checkAuth();
+        
+        // Auto-refresh every 60 seconds if logged in
+        setInterval(() => {
+            if (currentUserEmail) {
+                loadResults();
+            }
+        }, 60000);
+    </script>
+</body>
+</html>
