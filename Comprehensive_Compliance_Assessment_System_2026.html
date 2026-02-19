@@ -851,32 +851,72 @@
             });
         });
 
-        function startAssessment() {
-            const name = document.getElementById('employeeName').value.trim();
-            const empId = document.getElementById('employeeId').value.trim();
-            const dept = document.getElementById('department').value;
-            const email = document.getElementById('email').value.trim();
+  function startAssessment() {
+    const name = document.getElementById('employeeName').value.trim();
+    const empId = document.getElementById('employeeId').value.trim();
+    const dept = document.getElementById('department').value;
+    const email = document.getElementById('email').value.trim();
 
-            if (!name || !empId || !dept || !email) {
-                alert('Please fill in all required fields');
-                return;
-            }
-            
-            if (selectedModules.length === 0) {
-                alert('Please select at least one training module');
-                return;
-            }
+    if (!name || !empId || !dept || !email) {
+        alert('Please fill in all required fields');
+        return;
+    }
+    
+    if (selectedModules.length === 0) {
+        alert('Please select at least one training module');
+        return;
+    }
 
-            userData = {
-                name: name,
-                employeeId: empId,
-                department: dept,
-                email: email,
-                modules: selectedModules,
-                timestamp: new Date().toISOString()
-            };
+    userData = {
+        name,
+        employeeId: empId,
+        department: dept,
+        email,
+        modules: selectedModules,
+        timestamp: new Date().toISOString()
+    };
 
-            // Build questions pool
+    questionsPool = [];
+
+    selectedModules.forEach(module => {
+        const moduleQuestions = questionBank[module];
+
+        // Check if difficulty exists
+        const hasDifficulty = moduleQuestions.some(q => q.difficulty);
+
+        let selected = [];
+
+        if (hasDifficulty) {
+            const easy = moduleQuestions.filter(q => q.difficulty === 'easy');
+            const medium = moduleQuestions.filter(q => q.difficulty === 'medium');
+            const hard = moduleQuestions.filter(q => q.difficulty === 'hard');
+
+            const pickRandom = (arr, count) =>
+                arr.sort(() => 0.5 - Math.random()).slice(0, count);
+
+            selected = [
+                ...pickRandom(easy, 10),
+                ...pickRandom(medium, 5),
+                ...pickRandom(hard, 5)
+            ];
+        } else {
+            // fallback if difficulty not present
+            selected = moduleQuestions
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 20);
+        }
+
+        questionsPool.push(...selected.map(q => ({ ...q, module })));
+    });
+
+    currentQuestion = 0;
+    userAnswers = [];
+
+    showSection('assessmentSection');
+    displayQuestion();
+}
+
+        // Build questions pool
           questionsPool = [];
 
 selectedModules.forEach(module => {
