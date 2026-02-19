@@ -398,7 +398,7 @@
                 <h2 style="margin-bottom: 25px; color: #21295C;">Step 1: Select Training Module(s)</h2>
                 
                 <div class="alert alert-info">
-                    <strong>📋 Assessment Rules:</strong> You must score 80% or higher to pass. Each module has 25 questions. Retakes allowed if you don't pass. All attempts are tracked.
+                    <strong>📋 Assessment Rules:</strong> You must score 80% or higher to pass. Each module has 20 questions. Retakes allowed if you don't pass. All attempts are tracked.
                 </div>
                 
                 <div class="module-selector">
@@ -1030,10 +1030,10 @@ selectedModules.forEach(module => {
         function submitAssessment() {
             saveCurrentAnswer();
 
-            if (userAnswers.length < questionsPool.length) {
-                alert('Please answer all questions before submitting.');
-                return;
-            }
+          if (userAnswers.includes(undefined)) {
+    alert('Please answer all questions before submitting.');
+    return;
+}
 
             // Calculate scores
             let totalCorrect = 0;
