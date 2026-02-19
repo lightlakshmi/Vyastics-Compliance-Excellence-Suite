@@ -877,10 +877,27 @@
             };
 
             // Build questions pool
-            questionsPool = [];
-            selectedModules.forEach(module => {
-                questionsPool.push(...questionBank[module].map(q => ({...q, module: module})));
-            });
+          questionsPool = [];
+
+selectedModules.forEach(module => {
+    const moduleQuestions = questionBank[module];
+
+    const easy = moduleQuestions.filter(q => q.difficulty === 'easy');
+    const medium = moduleQuestions.filter(q => q.difficulty === 'medium');
+    const hard = moduleQuestions.filter(q => q.difficulty === 'hard');
+
+    const pickRandom = (arr, count) =>
+        arr.sort(() => 0.5 - Math.random()).slice(0, count);
+
+    const selected = [
+        ...pickRandom(easy, 10),
+        ...pickRandom(medium, 5),
+        ...pickRandom(hard, 5)
+    ];
+
+    questionsPool.push(...selected.map(q => ({ ...q, module })));
+});
+
 
             showSection('assessmentSection');
             displayQuestion();
